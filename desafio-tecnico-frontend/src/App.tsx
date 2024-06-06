@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "./api/axios";
 import { ContentCreatorDto } from "./dto/contentCreator";
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import Modal from "react-modal";
-import { FaTimes } from "react-icons/fa";
+import useApi from "./hooks/useApi";
+import ModalList from "./ModalList";
 
 Modal.setAppElement("#root");
 
@@ -19,42 +14,8 @@ const App: React.FC = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedCreatorsIds, setSelectedCreatorsIds] = useState<number[]>([]);
-
-  const queryClient = useQueryClient();
-  const { data, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["contentcreator"],
-    queryFn: async ({ pageParam }: { pageParam: number }) => {
-      const response = await axios.get(`/content_creator/${pageParam}`);
-      return response?.data;
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      const nextPage =
-        lastPage.length / 10 === allPages.length
-          ? allPages.length + 1
-          : undefined;
-      return nextPage;
-    },
-  });
-
-  // Mutations
-  const mutation = useMutation({
-    mutationFn: async () => {
-      const response = await axios.put(
-        `/content_creator/`,
-        data?.pages[data?.pages.length - 1]
-          .filter((item: ContentCreatorDto) =>
-            selectedCreatorsIds.includes(item.id)
-          )
-          .map((item: ContentCreatorDto) => item)
-      );
-      console.log(JSON.stringify(response.data));
-    },
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["contentcreator"] });
-    },
-  });
+  const {  mutation, data, fetchNextPage } = useApi(selectedCreatorsIds)
+  
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -85,10 +46,6 @@ const App: React.FC = () => {
             : []
         )
       : setSelectedCreatorsIds([]);
-  };
-
-  const handleButton = () => {
-    mutation.mutate();
   };
 
   useEffect(() => {
@@ -180,103 +137,7 @@ const App: React.FC = () => {
             Verificar Seguidores
           </button>
         </div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Exemplo de Modal"
-          style={{
-            content: {
-              width: "80%",
-              height: "80%",
-              top: "50%",
-              left: "50%",
-              right: "auto",
-              bottom: "auto",
-              marginRight: "-50%",
-              transform: "translate(-50%, -50%)",
-            },
-            overlay: {
-              backgroundColor: "rgba(0, 0, 0, 0.75)",
-            },
-          }}
-        >
-          <>
-            <button
-              onClick={closeModal}
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "transparent",
-                border: "none",
-                fontSize: "1.5rem",
-                cursor: "pointer",
-              }}
-            >
-              <FaTimes />
-            </button>
-            <table className="min-w-full border">
-              <thead className="bg-gray-200 border-b">
-                <tr>
-                  <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Nick
-                  </th>
-                  <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Email
-                  </th>
-                  <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Seguidores no Youtube
-                  </th>
-                  <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Nacionalidade
-                  </th>
-                  <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Último vídeo foi em uma semana?
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {data?.pages[data?.pages.length - 1]
-                  .filter((item: ContentCreatorDto) =>
-                    selectedCreatorsIds.includes(item.id)
-                  )
-                  .map((item: ContentCreatorDto) => (
-                    <tr key={item.id} className="bg-white border-b">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {item.nick}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.email}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.followersYtb}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.country}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {item.lastVideoInAWeek ? "Sim" : "Não"}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-            <div>
-              <div className="text-2xl py-4 flex justify-content-center">
-                Deseja Atualizar os Seguidores dos Selecionados?
-              </div>
-              <div>
-                <button className="text-2xl p-4 border" onClick={handleButton}>
-                  SIM
-                </button>
-                <span className="p-5"></span>
-                <button className="text-2xl p-4 border" onClick={closeModal}>
-                  NÃO
-                </button>
-              </div>
-            </div>
-          </>
-        </Modal>
+        <ModalList pages={data?.pages[data?.pages.length-1]} selectedCreatorsIds={selectedCreatorsIds} modalIsOpen={modalIsOpen} closeModal={closeModal}/>
       </div>
     </>
   );
