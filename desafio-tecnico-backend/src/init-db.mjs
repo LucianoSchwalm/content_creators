@@ -4,7 +4,7 @@ async function initializeDatabase() {
   const connection = await createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root_password',
+    password: 'Root_password1',
   });
 
   // Verifica se o banco de dados existe

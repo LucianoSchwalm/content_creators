@@ -13,7 +13,7 @@ import { ContentCreator } from './list/content-creator.model';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root_password',
+      password: 'Root_password1',
       database: 'desafio_pratico_nestjs',
       models: [ContentCreator],
       autoLoadModels: true,

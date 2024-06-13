@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { ContentCreatorService } from './content-creator.service';
 import { ContentCreatorDto } from './dto/content-creator.dto';
 
@@ -12,7 +20,7 @@ export class ContentCreatorController {
   }
 
   @Get(':page')
-  findPage(@Param('page') page : string) {
+  findPage(@Param('page') page: string) {
     return this.contentCreatorService.findPage(page);
   }
 
@@ -27,14 +35,18 @@ export class ContentCreatorController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateContentCreatorDto: ContentCreatorDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateContentCreatorDto: ContentCreatorDto,
+  ) {
     return this.contentCreatorService.update(id, updateContentCreatorDto);
   }
 
   @Put('')
-  updateAllFollowers(@Body() updateContentCreatorDto : ContentCreatorDto[]) {
-    console.log('entreixDxD',updateContentCreatorDto)
-    return this.contentCreatorService.updateAllFollowers(updateContentCreatorDto);
+  updateAllFollowers(@Body() updateContentCreatorDto: ContentCreatorDto[]) {
+    return this.contentCreatorService.updateAllFollowers(
+      updateContentCreatorDto,
+    );
   }
 
   @Delete(':id')
