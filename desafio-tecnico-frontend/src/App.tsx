@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
    const [modalIsOpen, setModalIsOpen] = useState(false);
    const [selectedCreatorsIds, setSelectedCreatorsIds] = useState<number[]>([]);
-   const { updateAll, data, fetchNextPage } = useApi(selectedCreatorsIds);
+   const { updateAll, updateContentCreator, data, fetchNextPage } = useApi(selectedCreatorsIds);
 
    const openModal = () => {
       setModalIsOpen(true);
@@ -67,6 +67,7 @@ const App: React.FC = () => {
                      pages={data?.pages[data?.pages.length - 1]}
                      selectedCreatorsIds={selectedCreatorsIds}
                      modalIsOpen={modalIsOpen}
+                     updateContentCreator={updateContentCreator}
                      selectContentCreator={selectContentCreator}
                      selectAllContentCreators={selectAllContentCreators}
                   />

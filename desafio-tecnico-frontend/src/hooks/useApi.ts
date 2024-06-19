@@ -8,7 +8,7 @@ import { ContentCreatorDto } from "../dto/contentCreator";
 
 const useApi = (selectedCreatorsIds: number[]) => {
    const queryClient = useQueryClient();
-   const { data, fetchNextPage } = useInfiniteQuery({
+   const { data, fetchNextPage, refetch } = useInfiniteQuery({
       queryKey: ["contentcreator"],
       queryFn: async ({ pageParam }: { pageParam: number }) => {
          const response = await axios.get(`/content_creator/${pageParam}`);
@@ -41,12 +41,10 @@ const useApi = (selectedCreatorsIds: number[]) => {
    });
 
    const updateContentCreator = useMutation({
-      mutationFn: async () => {
+      mutationFn: async (item : ContentCreatorDto) => {
          axios.put(
-            `/content_creator/`,
-            data?.pages[data?.pages.length - 1].find((item: ContentCreatorDto) =>
-               selectedCreatorsIds.includes(item.id)
-            )
+            `/content_creator/${item.id}`,
+            item
          );
       },
       onSuccess: () => {
@@ -54,7 +52,7 @@ const useApi = (selectedCreatorsIds: number[]) => {
       },
    });
 
-   return { updateAll, updateContentCreator, data, fetchNextPage };
+   return { updateAll, updateContentCreator, data, fetchNextPage, refetch };
 };
 
 export default useApi;

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { ContentCreatorDto } from "../dto/contentCreator";
+import { UseMutationResult } from "@tanstack/react-query";
 
 interface MyComponentProps {
    pages: ContentCreatorDto[];
    selectedCreatorsIds: number[];
    modalIsOpen: boolean;
+   updateContentCreator?: UseMutationResult<void, Error, ContentCreatorDto, unknown>;
    selectContentCreator: (itemId: number) => void;
    selectAllContentCreators: (isChecked: boolean) => void;
 }
@@ -13,6 +15,7 @@ const TableList: React.FC<MyComponentProps> = ({
    pages,
    selectedCreatorsIds,
    modalIsOpen,
+   updateContentCreator,
    selectContentCreator,
    selectAllContentCreators,
 }) => {
@@ -34,6 +37,16 @@ const TableList: React.FC<MyComponentProps> = ({
       setContentCreators((oldContentCreators) => oldContentCreators.map((item: ContentCreatorDto) =>
          item.id === itemId ? {...item, email: newEmail} : item
       ))
+   }
+
+   const submitEditContentCreator = (item : ContentCreatorDto) => {
+      setIsEditting(!isEditting)
+      updateContentCreator?.mutate(item)
+   }
+
+   const cancelEditContentCreator = (item : ContentCreatorDto) => {
+      setIsEditting(!isEditting)
+      updateContentCreator?.mutate(item)
    }
 
    return (
@@ -126,10 +139,10 @@ const TableList: React.FC<MyComponentProps> = ({
                           )}
                        </td>
                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          <input type="text" value={item.nick} onChange={(e) => editContentCreatorNick(item.id, e.target.value)} disabled={!isEditting}/>
+                          <input type="text" className="bg-white" value={item.nick} onChange={(e) => editContentCreatorNick(item.id, e.target.value)} disabled={!isEditting}/>
                        </td>
                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <input type="text" value={item.email ? item.email : ''} onChange={(e) => editContentCreatorEmail(item.id, e.target.value)} disabled={!isEditting}/>
+                          <input type="text" className="bg-white" value={item.email ? item.email : ''} onChange={(e) => editContentCreatorEmail(item.id, e.target.value)} disabled={!isEditting}/>
                        </td>
                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item.followersYtb}
@@ -143,7 +156,7 @@ const TableList: React.FC<MyComponentProps> = ({
                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {isEditting ? (
                            <div>
-                              <button className="px-6 py-4 whitespace-nowrap " onClick={() => setIsEditting(!isEditting)}>
+                              <button className="px-6 py-4 whitespace-nowrap " onClick={() => submitEditContentCreator(item)}>
                                  <svg className="h-8 w-8 text-green-600"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z"/>
                                     <circle cx="12" cy="12" r="9" />

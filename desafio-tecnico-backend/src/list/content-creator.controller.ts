@@ -35,7 +35,7 @@ export class ContentCreatorController {
   }
 
   @Put(':id')
-  update(
+  updateContentCreator(
     @Param('id') id: string,
     @Body() updateContentCreatorDto: ContentCreatorDto,
   ) {
