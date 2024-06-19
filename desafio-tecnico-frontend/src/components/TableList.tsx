@@ -46,7 +46,9 @@ const TableList: React.FC<MyComponentProps> = ({
 
    const cancelEditContentCreator = (item : ContentCreatorDto) => {
       setIsEditting(!isEditting)
-      updateContentCreator?.mutate(item)
+      // setContentCreators((oldContentCreators) => oldContentCreators.map((item: ContentCreatorDto) =>
+      //    item.id === itemId ? {...item, email: newEmail} : item
+      // ))
    }
 
    return (
