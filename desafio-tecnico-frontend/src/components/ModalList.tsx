@@ -69,8 +69,8 @@ const ModalList: React.FC<MyComponentProps> = ({
                pages={pages}
                selectedCreatorsIds={selectedCreatorsIds}
                modalIsOpen={modalIsOpen}
-               handleOnClick={selectContentCreator}
-               handleOnClickAll={selectAllContentCreators}
+               selectContentCreator={selectContentCreator}
+               selectAllContentCreators={selectAllContentCreators}
             />
             <div>
                <div className="text-2xl py-4 flex justify-content-center">
