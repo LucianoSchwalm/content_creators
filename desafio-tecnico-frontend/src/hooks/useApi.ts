@@ -24,9 +24,9 @@ const useApi = (selectedCreatorsIds: number[]) => {
       },
    });
 
-   const mutation = useMutation({
+   const updateAll = useMutation({
       mutationFn: async () => {
-         const response = await axios.put(
+         axios.put(
             `/content_creator/`,
             data?.pages[data?.pages.length - 1]
                .filter((item: ContentCreatorDto) =>
@@ -40,7 +40,21 @@ const useApi = (selectedCreatorsIds: number[]) => {
       },
    });
 
-   return { mutation, data, fetchNextPage };
+   const updateContentCreator = useMutation({
+      mutationFn: async () => {
+         axios.put(
+            `/content_creator/`,
+            data?.pages[data?.pages.length - 1].find((item: ContentCreatorDto) =>
+               selectedCreatorsIds.includes(item.id)
+            )
+         );
+      },
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: ["contentcreator"] });
+      },
+   });
+
+   return { updateAll, updateContentCreator, data, fetchNextPage };
 };
 
 export default useApi;

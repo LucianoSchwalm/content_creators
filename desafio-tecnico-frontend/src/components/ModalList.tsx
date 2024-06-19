@@ -11,7 +11,7 @@ interface MyComponentProps {
    selectedCreatorsIds: number[];
    modalIsOpen: boolean;
    closeModal: () => void;
-   mutation: UseMutationResult<void, Error, void, unknown>;
+   updateAll: UseMutationResult<void, Error, void, unknown>;
    selectContentCreator: (itemId: number) => void;
    selectAllContentCreators: (isChecked: boolean) => void;
 }
@@ -21,12 +21,12 @@ const ModalList: React.FC<MyComponentProps> = ({
    selectedCreatorsIds,
    modalIsOpen,
    closeModal,
-   mutation,
+   updateAll,
    selectContentCreator,
    selectAllContentCreators,
 }) => {
    const updateFollowers = () => {
-      mutation.mutate();
+      updateAll.mutate();
    };
 
    return (

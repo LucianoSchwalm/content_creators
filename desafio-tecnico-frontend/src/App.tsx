@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
    const [modalIsOpen, setModalIsOpen] = useState(false);
    const [selectedCreatorsIds, setSelectedCreatorsIds] = useState<number[]>([]);
-   const { mutation, data, fetchNextPage } = useApi(selectedCreatorsIds);
+   const { updateAll, data, fetchNextPage } = useApi(selectedCreatorsIds);
 
    const openModal = () => {
       setModalIsOpen(true);
@@ -81,7 +81,7 @@ const App: React.FC = () => {
                selectedCreatorsIds={selectedCreatorsIds}
                modalIsOpen={modalIsOpen}
                closeModal={closeModal}
-               mutation={mutation}
+               updateAll={updateAll}
                selectContentCreator={selectContentCreator}
                selectAllContentCreators={selectAllContentCreators}
                pages={data?.pages[data?.pages.length - 1]}
