@@ -25,7 +25,7 @@ const App: React.FC = () => {
       setModalIsOpen(false);
    };
 
-   const handleOnClick = (itemId: number) => {
+   const selectContentCreator = (itemId: number) => {
       selectedCreatorsIds.includes(itemId)
          ? setSelectedCreatorsIds(
               selectedCreatorsIds.filter((idCreator) => idCreator !== itemId)
@@ -36,7 +36,7 @@ const App: React.FC = () => {
            ]);
    };
 
-   const handleOnClickAll = (isChecked: boolean) => {
+   const selectAllContentCreators = (isChecked: boolean) => {
       isChecked
          ? setSelectedCreatorsIds(
               data?.pages
@@ -67,8 +67,8 @@ const App: React.FC = () => {
                      pages={data?.pages[data?.pages.length - 1]}
                      selectedCreatorsIds={selectedCreatorsIds}
                      modalIsOpen={modalIsOpen}
-                     handleOnClick={handleOnClick}
-                     handleOnClickAll={handleOnClickAll}
+                     selectContentCreator={selectContentCreator}
+                     selectAllContentCreators={selectAllContentCreators}
                   />
                </div>
             </div>
@@ -82,8 +82,8 @@ const App: React.FC = () => {
                modalIsOpen={modalIsOpen}
                closeModal={closeModal}
                mutation={mutation}
-               handleOnClick={handleOnClick}
-               handleOnClickAll={handleOnClickAll}
+               selectContentCreator={selectContentCreator}
+               selectAllContentCreators={selectAllContentCreators}
                pages={data?.pages[data?.pages.length - 1]}
             />
          </div>

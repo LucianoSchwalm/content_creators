@@ -4,16 +4,16 @@ interface MyComponentProps {
    pages: ContentCreatorDto[];
    selectedCreatorsIds: number[];
    modalIsOpen: boolean;
-   handleOnClick: (itemId: number) => void;
-   handleOnClickAll: (isChecked: boolean) => void;
+   selectContentCreator: (itemId: number) => void;
+   selectAllContentCreators: (isChecked: boolean) => void;
 }
 
 const TableList: React.FC<MyComponentProps> = ({
    pages,
    selectedCreatorsIds,
    modalIsOpen,
-   handleOnClick,
-   handleOnClickAll,
+   selectContentCreator,
+   selectAllContentCreators,
 }) => {
    return (
       <table className="min-w-full border">
@@ -27,7 +27,7 @@ const TableList: React.FC<MyComponentProps> = ({
                         name="allContentCreators"
                         id="allContetCreators"
                         className="h-5 w-5"
-                        onChange={(e) => handleOnClickAll(e.target.checked)}
+                        onChange={(e) => selectAllContentCreators(e.target.checked)}
                      />
                   )}
                </th>
@@ -67,7 +67,7 @@ const TableList: React.FC<MyComponentProps> = ({
                                    id="allContentCreators"
                                    className="h-5 w-5"
                                    onChange={() =>
-                                      handleOnClick(selectedItem.id)
+                                      selectContentCreator(selectedItem.id)
                                    }
                                 />
                              )}
@@ -99,7 +99,7 @@ const TableList: React.FC<MyComponentProps> = ({
                                 name="allContentCreators"
                                 id="allContentCreators"
                                 className="h-5 w-5"
-                                onChange={() => handleOnClick(item.id)}
+                                onChange={() => selectContentCreator(item.id)}
                              />
                           )}
                        </td>

@@ -12,8 +12,8 @@ interface MyComponentProps {
    modalIsOpen: boolean;
    closeModal: () => void;
    mutation: UseMutationResult<void, Error, void, unknown>;
-   handleOnClick: (itemId: number) => void;
-   handleOnClickAll: (isChecked: boolean) => void;
+   selectContentCreator: (itemId: number) => void;
+   selectAllContentCreators: (isChecked: boolean) => void;
 }
 
 const ModalList: React.FC<MyComponentProps> = ({
@@ -22,10 +22,10 @@ const ModalList: React.FC<MyComponentProps> = ({
    modalIsOpen,
    closeModal,
    mutation,
-   handleOnClick,
-   handleOnClickAll,
+   selectContentCreator,
+   selectAllContentCreators,
 }) => {
-   const handleButton = () => {
+   const updateFollowers = () => {
       mutation.mutate();
    };
 
@@ -69,8 +69,8 @@ const ModalList: React.FC<MyComponentProps> = ({
                pages={pages}
                selectedCreatorsIds={selectedCreatorsIds}
                modalIsOpen={modalIsOpen}
-               handleOnClick={handleOnClick}
-               handleOnClickAll={handleOnClickAll}
+               handleOnClick={selectContentCreator}
+               handleOnClickAll={selectAllContentCreators}
             />
             <div>
                <div className="text-2xl py-4 flex justify-content-center">
@@ -79,7 +79,7 @@ const ModalList: React.FC<MyComponentProps> = ({
                <div>
                   <button
                      className="text-2xl p-4 border"
-                     onClick={handleButton}
+                     onClick={updateFollowers}
                   >
                      SIM
                   </button>
