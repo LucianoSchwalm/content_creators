@@ -15,7 +15,8 @@ const App: React.FC = () => {
 
    const [modalIsOpen, setModalIsOpen] = useState(false);
    const [selectedCreatorsIds, setSelectedCreatorsIds] = useState<number[]>([]);
-   const { updateAll, updateContentCreator, data, fetchNextPage } = useApi(selectedCreatorsIds);
+   const { updateAll, updateContentCreator, data, fetchNextPage, refetch } =
+      useApi(selectedCreatorsIds);
 
    const openModal = () => {
       setModalIsOpen(true);
@@ -70,6 +71,7 @@ const App: React.FC = () => {
                      updateContentCreator={updateContentCreator}
                      selectContentCreator={selectContentCreator}
                      selectAllContentCreators={selectAllContentCreators}
+                     refetch={refetch}
                   />
                </div>
             </div>
@@ -86,6 +88,7 @@ const App: React.FC = () => {
                selectContentCreator={selectContentCreator}
                selectAllContentCreators={selectAllContentCreators}
                pages={data?.pages[data?.pages.length - 1]}
+               refetch={refetch}
             />
          </div>
       </>

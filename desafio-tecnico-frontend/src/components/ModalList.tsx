@@ -1,7 +1,12 @@
 import { FaTimes } from "react-icons/fa";
 import Modal from "react-modal";
 import { ContentCreatorDto } from "../dto/contentCreator";
-import { UseMutationResult } from "@tanstack/react-query";
+import {
+   InfiniteData,
+   QueryObserverResult,
+   RefetchOptions,
+   UseMutationResult,
+} from "@tanstack/react-query";
 import TableList from "./TableList";
 
 Modal.setAppElement("#root");
@@ -14,6 +19,9 @@ interface MyComponentProps {
    updateAll: UseMutationResult<void, Error, void, unknown>;
    selectContentCreator: (itemId: number) => void;
    selectAllContentCreators: (isChecked: boolean) => void;
+   refetch: (
+      options?: RefetchOptions | undefined
+   ) => Promise<QueryObserverResult<InfiniteData<any, unknown>, Error>>;
 }
 
 const ModalList: React.FC<MyComponentProps> = ({
@@ -24,6 +32,7 @@ const ModalList: React.FC<MyComponentProps> = ({
    updateAll,
    selectContentCreator,
    selectAllContentCreators,
+   refetch,
 }) => {
    const updateFollowers = () => {
       updateAll.mutate();
@@ -71,6 +80,7 @@ const ModalList: React.FC<MyComponentProps> = ({
                modalIsOpen={modalIsOpen}
                selectContentCreator={selectContentCreator}
                selectAllContentCreators={selectAllContentCreators}
+               refetch={refetch}
             />
             <div>
                <div className="text-2xl py-4 flex justify-content-center">

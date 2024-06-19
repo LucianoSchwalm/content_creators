@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { ContentCreatorDto } from "../dto/contentCreator";
-import { UseMutationResult } from "@tanstack/react-query";
+import {
+   InfiniteData,
+   QueryObserverResult,
+   RefetchOptions,
+   UseMutationResult,
+} from "@tanstack/react-query";
 
 interface MyComponentProps {
    pages: ContentCreatorDto[];
@@ -14,6 +19,9 @@ interface MyComponentProps {
    >;
    selectContentCreator: (itemId: number) => void;
    selectAllContentCreators: (isChecked: boolean) => void;
+   refetch: (
+      options?: RefetchOptions | undefined
+   ) => Promise<QueryObserverResult<InfiniteData<any, unknown>, Error>>;
 }
 
 const TableList: React.FC<MyComponentProps> = ({
@@ -23,6 +31,7 @@ const TableList: React.FC<MyComponentProps> = ({
    updateContentCreator,
    selectContentCreator,
    selectAllContentCreators,
+   refetch,
 }) => {
    const [isEditting, setIsEditting] = useState(false);
    const [contentCreators, setContentCreators] =
@@ -64,6 +73,7 @@ const TableList: React.FC<MyComponentProps> = ({
                   : oldItem
             )
          );
+      refetch();
    };
 
    return (
@@ -191,7 +201,7 @@ const TableList: React.FC<MyComponentProps> = ({
                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item.lastVideoInAWeek ? "Sim" : "Não"}
                        </td>
-                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                       <td className="text-sm text-gray-900 font-light px-6 py-4 h-24 whitespace-nowrap">
                           {isEditting ? (
                              <div>
                                 <button
