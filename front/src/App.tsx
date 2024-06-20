@@ -63,6 +63,10 @@ const App: React.FC = () => {
                      <div className="text-3xl pb-5">
                         Lista de criadores de conteúdo que assisto!
                      </div>
+                     <div className="pb-4">
+                        Clique no lápis para editar email e/ou nick do criador
+                        de conteúdo
+                     </div>
                   </header>
                   <TableList
                      pages={data?.pages[data?.pages.length - 1]}
