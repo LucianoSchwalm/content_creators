@@ -63,9 +63,16 @@ const App: React.FC = () => {
                      <div className="text-3xl pb-5">
                         Lista de criadores de conteúdo que assisto!
                      </div>
-                     <div className="pb-4">
-                        Clique no lápis para editar email e/ou nick do criador
-                        de conteúdo
+                     <div className="grid grid-cols-2">
+                        <div className="pb-4">
+                           Clique no lápis para editar email e/ou nick do
+                           criador de conteúdo
+                        </div>
+                        <div className="pb-5 text-right">
+                           <button onClick={openModal} className="border">
+                              Atualizar Seguidores
+                           </button>
+                        </div>
                      </div>
                   </header>
                   <TableList
@@ -79,11 +86,6 @@ const App: React.FC = () => {
                   />
                </div>
             </div>
-            <div className="mx-10 mb-10">
-               <button ref={ref} onClick={openModal} className="border">
-                  Verificar Seguidores
-               </button>
-            </div>
             <ModalList
                selectedCreatorsIds={selectedCreatorsIds}
                modalIsOpen={modalIsOpen}
@@ -95,6 +97,7 @@ const App: React.FC = () => {
                refetch={refetch}
             />
          </div>
+         <div ref={ref} />
       </>
    );
 };
