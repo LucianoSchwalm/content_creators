@@ -8,30 +8,24 @@
 [![Nestjs](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com)
 [![Nodejs](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Mysql](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)
-[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
+
 
 </div>
-<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-</div>
----
-
-<p align="center">The idea of the project was to learn how to make a whole project by myself, building a list
-with my favorites tech content creators, creating some CRUD features.
-    <br> 
+<p align="center">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/lucianoschwalm/content_creators?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucianoschwalm/content_creators?color=56BEB8">
+  <img alt="Github issues" src="https://img.shields.io/github/issues/lucianoschwalm/content_creators?color=56BEB8" />
+  <img alt="Github forks" src="https://img.shields.io/github/forks/lucianoschwalm/content_creators?color=56BEB8" />
+  <img alt="Github stars" src="https://img.shields.io/github/stars/lucianoschwalm/content_creators?color=56BEB8" />
 </p>
 
 
-## 🧐 About <a name = "about"></a>
 
-My Content Creators
-To put this idea on work, i've created a list with some attributes talking about each content
-creator, also, i've added a button to select a list of content creators to update their
-followers (actually it just add 5 followers each click). In addition, I've created a edit
-button on each content creator, so you can edit their name and email. Lastly, I included a 
-docker container to simplify the deploy and to run easily in others machines
+
+## 🧐 About <a name = "about"></a>
+The goal of this project was to learn how to build a complete project by myself. I decided to create a list of my favorite tech content creators and implement some CRUD features.
+
+To bring this idea to life, I built a list that includes some attributes about each content creator. I also added a button that allows users to update the followers of the selected content creators (it adds 5 followers with each click, its not implemented with any API). Additionally, I implemented an edit button for each content creator, enabling users to edit their name and email. Lastly, I included a Docker container to simplify deployment and make it easy to run the project on other machines.
 
 
 ### ⛏️ Installing
@@ -51,7 +45,7 @@ docker-compose -f .\docker-compose.yml up --build -d
 ```
 
 ## ⛏️ Built Using <a name = "built_using"></a>
-Stack: React | Typescript | Nestjs | Mysql | Docker
+
 - [Mysql](https://www.mysql.com/) - Database
 - [Nestjs](https://nestjs.com/) - Server Framework
 - [React](https://react.dev/) - Web Framework
