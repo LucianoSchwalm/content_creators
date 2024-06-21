@@ -2,20 +2,21 @@ import { createConnection } from 'mysql2/promise';
 
 async function initializeDatabase() {
   const connection = await createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Root_password1',
+    host: 'mysql_db',
+    port: '3307',
+    user: 'testuser',
+    password: 'testuser123',
   });
 
   // Verifica se o banco de dados existe
-  const [rows] = await connection.query(`SHOW DATABASES LIKE 'desafio_pratico_nestjs';`);
+  const [rows] = await connection.query(`SHOW DATABASES LIKE 'nestjs_content_creator_server';`);
 
   if (rows.length === 0) {
     // Cria o banco de dados se não existir
-    await connection.query('CREATE DATABASE desafio_pratico_nestjs;');
-    console.log('Database "desafio_pratico_nestjs" created successfully.');
+    await connection.query('CREATE DATABASE nestjs_content_creator_server;');
+    console.log('Database "nestjs_content_creator_server" created successfully.');
   } else {
-    console.log('Database "desafio_pratico_nestjs" already exists.');
+    console.log('Database "nestjs_content_creator_server" already exists.');
   }
 
   await connection.end();

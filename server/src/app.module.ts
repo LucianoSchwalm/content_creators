@@ -6,15 +6,28 @@ import { DatabaseInitService } from './database-init.service';
 import { ContentCreator } from './list/content-creator.model';
 
 @Module({
+  // imports: [
+  //   ConfigModule.forRoot(),
+  //   SequelizeModule.forRoot({
+  //     dialect: 'mysql',
+  //     host: 'localhost',
+  //     port: 3306,
+  //     username: 'root',
+  //     password: 'Root_password1',
+  //     database: 'desafio_pratico_nestjs',
+  //     models: [ContentCreator],
+  //     autoLoadModels: true,
+  //     synchronize: true,
+  //   }),
   imports: [
     ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'Root_password1',
-      database: 'desafio_pratico_nestjs',
+      host: 'mysql_db',
+      port: 3307,
+      username: 'testuser',
+      password: 'testuser123',
+      database: 'nestjs_content_creator_server',
       models: [ContentCreator],
       autoLoadModels: true,
       synchronize: true,
